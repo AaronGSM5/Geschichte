@@ -6,10 +6,12 @@ let enableButtons = true
 function changeSlides(nextIndex) {
   if (enableButtons && activeIndex != nextIndex) {
     enableButtons = false
+
+    const direction = activeIndex < nextIndex ? 'before' : 'after'
     const currentSlide = document.querySelector(`[data-index="${activeIndex}"]`)
     const nextSlide = document.querySelector(`[data-index="${nextIndex}"]`)
   
-    currentSlide.dataset.status = "before";
+    currentSlide.dataset.status = direction;
     nextSlide.dataset.status = "active";
     
     blur.style = `backdrop-filter: blur(2000px);`
@@ -88,18 +90,26 @@ slides.addEventListener('touchstart',
 
 slides.addEventListener('touchmove', 
 (e) => {
-  let touchCurrentPoint = e.touches[0].clientX
-  if ( touchStartPoint < touchCurrentPoint) {
-    const newIndex = activeIndex+1 > 5 ? 0 : activeIndex+1 ;
-    changeSlides(newIndex)
-    touchStartPoint = 0
-    touchCurrentPoint = 0
-  }
+    enableTouchEvent = false
+    e.preventDefault()
+    let touchCurrentPoint = e.touches[0].clientX
 
-  if ( touchCurrentPoint < touchStartPoint) {
-    const newIndex = activeIndex-1 < 0 ? 5 : activeIndex-1 ;
-    changeSlides(newIndex)
-    touchStartPoint = 0
-    touchCurrentPoint = 0
-  }
+    if (touchStartPoint - touchCurrentPoint > 100) {
+      const newIndex = activeIndex+1 > 5 ? 0 : activeIndex+1 ;
+      changeSlides(newIndex)
+      touchStartPoint = 0
+      touchCurrentPoint = 0
+    }
+  
+    if (touchCurrentPoint - touchStartPoint > 100) {
+      e.preventDefault()
+      const newIndex = activeIndex-1 < 0 ? 5 : activeIndex-1 ;
+      changeSlides(newIndex)
+      touchStartPoint = 0
+      touchCurrentPoint = 0
+    }
+})
+
+slides.addEventListener('touchend', 
+(e) => {
 })

@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  background-color: black;
+  background-color: bla;
   display: grid;
   grid-template-areas: 
   "header"
@@ -102,11 +102,15 @@ nav {
       
       .slides[data-status="unknown"] {
         transform: scale(0);
-        transform: translateX(50%) scale(0) rotate(30deg);
+        transform: translateX(0) scale(0) rotate(0);
       }
       
       .slides[data-status="before"] {
         transform: translateX(-50%) scale(0) rotate(-30deg);
+      }
+
+      .slides[data-status="after"] {
+        transform: translateX(50%) scale(0) rotate(30deg);
       }
 
       .slides h1 {
