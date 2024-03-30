@@ -78,3 +78,28 @@ function lightTitle(title) {
     document.querySelector(`#${title}-text`).style = ''
   }, 1400);
 }
+
+let touchStartPoint;
+
+slides.addEventListener('touchstart', 
+(e) => {
+  touchStartPoint = e.touches[0].clientX
+})
+
+slides.addEventListener('touchmove', 
+(e) => {
+  let touchCurrentPoint = e.touches[0].clientX
+  if ( touchStartPoint - touchCurrentPoint > 100) {
+    const newIndex = activeIndex+1 > 5 ? 0 : activeIndex+1 ;
+    changeSlides(newIndex)
+    touchStartPoint = 0
+    touchCurrentPoint = 0
+  }
+
+  if ( touchCurrentPoint - touchStartPoint > 100) {
+    const newIndex = activeIndex-1 < 0 ? 5 : activeIndex-1 ;
+    changeSlides(newIndex)
+    touchStartPoint = 0
+    touchCurrentPoint = 0
+  }
+})
