@@ -94,7 +94,6 @@ slides.addEventListener('touchmove',
 })
 
 function swipeSlides(e) {
-  e.preventDefault()
   let swiperCurrentPoint = e.touches[0].clientX
 
   if (swiperStartPoint - swiperCurrentPoint > 100) {
@@ -105,7 +104,6 @@ function swipeSlides(e) {
   }
 
   if (swiperCurrentPoint - swiperStartPoint > 100) {
-    e.preventDefault()
     const newIndex = activeIndex-1 < 0 ? 5 : activeIndex-1 ;
     changeSlides(newIndex)
     swiperStartPoint = 0
